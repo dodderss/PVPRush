@@ -10,6 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import static org.bukkit.Bukkit.getServer;
+
 public class StartCommand implements CommandExecutor {
 
     private Main plugin;
@@ -24,7 +26,6 @@ public class StartCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player p1 = (Player) sender;
-        Player p2 = p1.getServer().getPlayer(args[0]);
         BukkitScheduler sched = p1.getServer().getScheduler();
         p1.getServer().broadcastMessage(ChatColor.YELLOW +"Game Starting!!");
         task1 = sched.scheduleSyncRepeatingTask(this.plugin, new Runnable() {
@@ -35,7 +36,7 @@ public class StartCommand implements CommandExecutor {
                     p1.getServer().broadcastMessage(ChatColor.GREEN + "PVP Rush has started!");
                     Bukkit.getScheduler().cancelTask(task1);
                 }else {
-                    p1.getServer().broadcastMessage(Integer.toString(num--));
+                    p1.getServer().broadcastMessage(ChatColor.GOLD+Integer.toString(num--));
                 }
 
 
@@ -50,11 +51,12 @@ public class StartCommand implements CommandExecutor {
                     @Override
                     public void run() {
                         if (num == 0) {
-                            p1.teleport(new Location(Bukkit.getWorld("world"), 0, 69, 0));
-                            p2.teleport(new Location(Bukkit.getWorld("world"), 0, 69, 0));
+                            for (Player p : getServer().getOnlinePlayers())
+                                p.teleport(new Location(Bukkit.getWorld("world"), 0, 69, 0));
+                            p1.getServer().broadcastMessage(ChatColor.GREEN + "All players have been teleported!");
                             Bukkit.getScheduler().cancelTask(task2);
                         }else {
-                            p1.getServer().broadcastMessage(Integer.toString(num--));
+                            p1.getServer().broadcastMessage(ChatColor.GOLD+ Integer.toString(num--));
                         }
 
 
@@ -64,7 +66,7 @@ public class StartCommand implements CommandExecutor {
 
 
             }
-        }, 6020L, 6000L);
+        }, 2460L, 2400L);
 
         return true;
     }
