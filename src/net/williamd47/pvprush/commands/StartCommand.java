@@ -59,12 +59,12 @@ public class StartCommand implements CommandExecutor {
 
 
                     }
-                }, 0L, 0L);
+                }, 0L, 20L);
 
 
 
             }
-        }, 2400L, 2400L);
+        }, 6020L, 6000L);
 
         return true;
     }
