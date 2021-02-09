@@ -27,7 +27,10 @@ public class StartCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player p1 = (Player) sender;
         BukkitScheduler sched = p1.getServer().getScheduler();
-        p1.getServer().broadcastMessage(ChatColor.YELLOW +"Game Starting!!");
+        int playercount = 0;
+        for (Player p : getServer().getOnlinePlayers())
+            playercount += 1;
+        p1.getServer().broadcastMessage(ChatColor.YELLOW +"Game Starting with "+ Integer.toString(playercount) + " players");
         task1 = sched.scheduleSyncRepeatingTask(this.plugin, new Runnable() {
             int num = 10;
             @Override
