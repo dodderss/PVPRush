@@ -2,8 +2,8 @@
 A minecraft plugin that teleports you to spawn every 2 minutes to fight
 
 COMMANDS:
-/prush username
-starts the game. replace username with other players username
+/startrush world
+starts the game. replace world with the world name you want to start in. E.G world or world_the_end
 
-/erush 
+/endrush 
 ends the game

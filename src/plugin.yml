@@ -5,7 +5,7 @@ main: net.williamd47.pvprush.Main
 description: pvp rush jjrascal epic
 
 commands:
-  prush:
-    description: /prush [other] to start game with you and [other]
-  erush:
-    description: /erush ends game
+  startrush:
+    description: /startrush [other] to start game with you and [other]
+  endrush:
+    description: /endrush ends game

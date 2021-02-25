@@ -11,17 +11,24 @@ import org.bukkit.entity.Player;
 public class EndCommand implements CommandExecutor{
 
 private Main plugin;
+    String prefix = ChatColor.GRAY + "[" + ChatColor.GREEN + "PVP Rush" + ChatColor.GRAY + "] ";
     public EndCommand(Main plugin) {
         this.plugin = plugin;
-        plugin.getCommand("erush").setExecutor(this);
+        plugin.getCommand("endrush").setExecutor(this);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player p = (Player) sender;
-        p.getServer().broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "Stopped PVP Rush");
-        p.getServer().getScheduler().cancelTasks(this.plugin);
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "scoreboard players reset @a killCount");
+        if (p.hasPermission("pvprush.end")) {
+            p.sendMessage(prefix + ChatColor.RED + "" + ChatColor.BOLD + "Stopped PVP Rush");
+            p.getServer().getScheduler().cancelTasks(this.plugin);
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "scoreboard players reset @a killCount");
+        } else {
+            p.sendMessage(prefix + ChatColor.RED + "" + ChatColor.BOLD + "You do not have permission to do this!");
+
+        }
+
         return false;
 
     }
