@@ -1,9 +1,11 @@
 package net.williamd47.pvprush.commands;
 
 import net.williamd47.pvprush.Main;
+import net.williamd47.pvprush.TabComplete;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,6 +25,7 @@ public class StartCommand implements CommandExecutor {
     public StartCommand(Main plugin) {
         this.plugin = plugin;
         plugin.getCommand("startrush").setExecutor(this);
+        plugin.getCommand("startrush").setTabCompleter(new TabComplete());
     }
 
     @Override
@@ -57,7 +60,9 @@ public class StartCommand implements CommandExecutor {
                                 for (Player p : Bukkit.getOnlinePlayers()) {
                                     if (p.getWorld().getName().equals(args[0])) {
                                         p.sendMessage(prefix + ChatColor.GREEN + "PVP Rush has started!");
+
                                     }
+
                                 }
                                 Bukkit.getScheduler().cancelTask(task1);
                             } else {
@@ -78,8 +83,6 @@ public class StartCommand implements CommandExecutor {
                         public void run() {
                             task2 = sched.scheduleSyncRepeatingTask(plugin, new Runnable() {
                                 int num = 20;
-                                Location loc = Bukkit.getWorld(args[0]).getSpawnLocation();
-
                                 @Override
                                 public void run() {
                                     if (num == 0) {
@@ -94,6 +97,9 @@ public class StartCommand implements CommandExecutor {
 
                                         p1.getServer().broadcastMessage(prefix + ChatColor.GREEN + "All players have been teleported!");
                                         Bukkit.getScheduler().cancelTask(task2);
+                                        for (Player p : getServer().getOnlinePlayers())
+                                            p1.getServer().broadcastMessage(prefix + ChatColor.BLUE + p1.getName() + " is " + ChatColor.GOLD + "" + ChatColor.BOLD + Integer.toString(20 - p1.getStatistic(Statistic.PLAYER_KILLS)) + ChatColor.RESET + ChatColor.BLUE + " kills away from winning");
+
                                     } else {
                                         p1.getServer().broadcastMessage(prefix + ChatColor.GOLD + "Teleporting in " + Integer.toString(num--));
                                     }

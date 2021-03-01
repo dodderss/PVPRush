@@ -29,7 +29,6 @@ private Main plugin;
             if (p.hasPermission("pvprush.end")) {
                 p.sendMessage(prefix + ChatColor.RED + "" + ChatColor.BOLD + "Stopped PVP Rush");
                 p.getServer().getScheduler().cancelTasks(this.plugin);
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "scoreboard players reset @a killCount");
             } else {
                 p.sendMessage(prefix + ChatColor.RED + "" + ChatColor.BOLD + "You do not have permission to do this!");
 
